@@ -52,7 +52,17 @@ def logoutUser(request):
     return redirect('home') 
 
 def registerUser(request):
-    pass 
+    if request.method=='POST':
+        form = CustomUserCreationForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+    else:
+        form = CustomUserCreationForm() 
+    
+
+    return render(request, "register.html", {"form":form}) 
 
 def user_profile(request,username):
     user = get_object_or_404(CustomUser, username=username)
