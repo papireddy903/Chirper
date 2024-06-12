@@ -3,10 +3,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.hashers import make_password
 from .models import *
 from .forms import *
+from django.contrib.auth.decorators import login_required
 
 from django.shortcuts import get_object_or_404
 
-
+@login_required()
 def home_view(request):
     user = request.user
     if request.method == 'POST':
