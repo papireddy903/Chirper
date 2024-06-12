@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+
+
+{% block content %}
+
+<form action="{% url 'home' %}" method="post" >
+    {% csrf_token %}
+    <h1>Chirp Something</h1>
+    {{form.as_p}}
+    <button type="submit">Chirp</button>
+</form>
+
+{% for chirp in chirps %}
+
+<div>
+    {{chirp.chirp}}
+    chirped by <a href="{% url 'user_profile' chirp.tweeted_by.username %}" style="text-decoration:None;">{{chirp.tweeted_by.username}}</a>
+    <p>chirped at {{chirp.tweeted_at}}</p>
+</div>
+
+{% endfor %}
+
+{% endblock %}
