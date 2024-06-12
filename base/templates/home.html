@@ -14,8 +14,8 @@
 
 <div>
     {{chirp.chirp}}
-    chirped by <a href="{% url 'user_profile' chirp.tweeted_by.username %}" style="text-decoration:None;">{{chirp.tweeted_by.username}}</a>
-    <p>chirped at {{chirp.tweeted_at}}</p>
+    chirped by <a href="{% url 'user_profile' chirp.author.username %}" style="text-decoration:None;">{{chirp.tweeted_by.username}}</a>
+    <p>chirped at {{chirp.created}}</p>
 </div>
 
 {% endfor %}

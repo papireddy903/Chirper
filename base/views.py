@@ -13,7 +13,7 @@ def home_view(request):
         form = ChirpForm(request.POST)
         if form.is_valid():
             chirp = form.save(commit=False)
-            chirp.tweeted_by = user
+            chirp.author = user
             chirp.save()
             return redirect('home')
     else:
