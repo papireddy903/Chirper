@@ -66,7 +66,8 @@ def registerUser(request):
 
 def user_profile(request,username):
     user = get_object_or_404(CustomUser, username=username)
-    return render(request, 'user_profile.html', {"user":user})
+    chirps = Chirp.objects.filter(author=user.id).order_by('-created')
+    return render(request, 'user_profile.html', {"user":user,"chirps":chirps})
 
 def search_results(request):
     if request.method=='POST':
@@ -76,3 +77,9 @@ def search_results(request):
 
         return render(request, "home.html", {"results":results})
     
+
+def view_post(request,pk):
+
+    chirp = Chirp.objects.get(id=pk)
+
+    return render(request, "view_post.html", {"chirp":chirp}) 

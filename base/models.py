@@ -17,7 +17,7 @@ class CustomUser(AbstractUser):
         try: 
             url = self.profile_photo.url 
         except:
-            url = settings.MEDIA_URL + 'default_img.jpg'
+            url = settings.MEDIA_URL + 'default.jpg'
         return url 
 
  
@@ -28,7 +28,7 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.email
+        return self.username 
 
 
     
@@ -45,11 +45,26 @@ class Chirp(models.Model):
 
 class Like(models.Model):
     chirp = models.ForeignKey(Chirp, on_delete=models.CASCADE) 
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    liked_by = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     created = models.DateTimeField(auto_now_add=True) 
 
     def __str__(self):
-        return f"{self.chirp} - {self.author}" 
+        return f"{self.chirp} - {self.liked_by}" 
     
 
+class Reply(models.Model):
+    chirp = models.ForeignKey(Chirp, on_delete=models.CASCADE)
+    text = models.TextField(max_length=1000)
+    author = models.ForeignKey(CustomUser, related_name="chirp_author", on_delete=models.CASCADE) 
+    replied_by = models.ForeignKey(CustomUser,related_name="replied_by", on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"{self.text} - {self.replied_by}"
+
+class Follow(models.Model):
+    following = models.ForeignKey(CustomUser, related_name="following", on_delete=models.CASCADE)
+    followed_by = models.ForeignKey(CustomUser, related_name="followed_by", on_delete=models.CASCADE) 
+
+    def __str__(self):
+        return f"{self.followed_by} follows {self.following}"
+    
