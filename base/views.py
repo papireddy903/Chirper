@@ -4,8 +4,14 @@ from django.contrib.auth.hashers import make_password
 from .models import *
 from .forms import *
 from django.contrib.auth.decorators import login_required
-
 from django.shortcuts import get_object_or_404
+
+from django.http import JsonResponse  
+from rest_framework_simplejwt.tokens import RefreshToken
+
+import json 
+
+
 
 @login_required()
 def home_view(request):
@@ -29,21 +35,26 @@ def home_view(request):
 
 
 def loginUser(request):
-    if request.method=='POST':
-        email = request.POST['email']
-        # user = CustomUser.objects.get(email=email)
-        # print(user.password)
-        password = request.POST['password'] 
-        # print(password)
-# 
+    if request.method == 'POST':
+        body = json.loads(request.body)
+        email = body.get('email')
+        password = body.get('password')
         user = authenticate(request, email=email, password=password)
+        
         if user is not None:
             login(request, user)
-            return redirect('home')
- 
+            refresh = RefreshToken.for_user(user)
+            response_data = {
+                'access': str(refresh.access_token), 
+                'refresh':str(refresh),
+            }
+
+            response = JsonResponse(response_data) 
+            response.status_code = 200 
+            return response 
+            # return redirect('home') 
         else:
-            print('login failed')
-            return redirect('login')
+            return JsonResponse({'detail': 'Invalid credentials'}, status=401)
     else:
         return render(request, "login.html", {})
     

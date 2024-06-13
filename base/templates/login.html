@@ -4,19 +4,56 @@
 <div class="d-flex justify-content-center align-items-center vh-100">
   <div class="card p-4" style="width: 20rem;">
     <h3 class="text-center mb-4">Login</h3>
-    <form action="{% url 'login' %}" method="POST">
+    <form action="{% url 'login' %}" method="POST" id="loginForm">
         {% csrf_token %}
       <div class="mb-3">
-        <input type="email" class="form-control" name="email" placeholder="Email..">
+        <input type="email" class="form-control" id="email" name="email" placeholder="Email..">
       </div>
       <div class="mb-3">
-        <input type="password" class="form-control" name="password" placeholder="Password..">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Password..">
       </div>
       <button type="submit" class="btn btn-primary w-100">Login</button>
       <p class="mx-5 my-2">New User? Signup <a href="{% url 'register' %}" style="text-decoration: None;">here</a></p>
     </form>
-
   </div>
 </div>
+
+<script>
+  document.getElementById("loginForm").addEventListener('submit', async function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+
+    try {
+      const response = await fetch('{% url "login" %}', { 
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': '{{ csrf_token }}',
+        },
+        body: JSON.stringify({email: email, password: password}), 
+      });
+
+      console.log(response)
+
+      if (!response.ok) {
+        throw new Error('Login Failed');
+      }
+
+      const data = await response.json();
+
+      // Store tokens in localStorage
+      localStorage.setItem('accessToken', data.access);
+      localStorage.setItem('refreshToken', data.refresh);
+
+      // Redirect to homepage
+      window.location.href = '/';
+    } catch (error) {
+      console.error('Login error:', error);
+      alert('Login failed. Please try again');
+    }
+  });
+</script>
 
 {% endblock %}
