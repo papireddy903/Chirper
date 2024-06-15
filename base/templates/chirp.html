@@ -1,0 +1,37 @@
+
+
+<div id="chirp-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&times;</span>
+        <h2>Compose a Chirp</h2>
+        <form method="post" action="{% url 'compose/post' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Post</button>
+        </form>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            let modal = document.getElementById('chirp-modal')
+            let btn = document.getElementById('chirp-button')
+            let span = document.getElementsByClassName("close-button")[0]
+
+            btn.onclick = () => {
+                modal.style.display = 'block'
+            }
+
+            span.onclick = () => {
+                modal.style.display = 'none'
+            }
+
+            window.onclick = (event) => {
+                if (event.target == modal){
+                    modal.style.display = 'none'
+                }
+            }
+        })
+    </script>
+</div>
+
+
+

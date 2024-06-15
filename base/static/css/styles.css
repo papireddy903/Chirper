@@ -1,63 +1,85 @@
 .navbar-brand .logo {
-    height: 40px; /* Adjust the height as needed */
-    width: auto;  /* Maintain the aspect ratio */
-  }
-
-  .navbar-nav .nav-link {
-    margin-right: 15px;
-  }
-
-  .btn {
-    margin-left: 10px;
-  }
-
-
-  .container {
-    max-width: 600px;
-    margin: auto;
-  }
-
-  .chirp-form {
-    background-color: #ffffff;
-    border-radius: 10px;
-  }
-
-  .chirp-form .card-title {
-    font-size: 24px;
-    font-weight: bold;
-  }
-
-  .chirp-form button {
-    background-color: #1da1f2;
-    border-color: #1da1f2;
-  }
-
-  .chirp-form button:hover {
-    background-color: #0d8ded;
-  }
-
-  .chirp {
-    background-color: #ffffff;
-    border-radius: 10px;
-  }
-
-  .chirp .card-text {
-    font-size: 16px;
-  }
-
-  .chirp .text-muted {
-    font-size: 14px;
-  }
-
-
-  .img-small {
-    width: 100px; /* or any other small size you prefer */
-    height: 100px; /* ensure it matches the width to keep it circular */
-    object-fit: cover; /* keeps the aspect ratio */
+  height: 40px; /* Adjust the height as needed */
+  width: auto;  /* Maintain the aspect ratio */
 }
 
+.navbar-nav .nav-link {
+  margin-right: 15px;
+}
 
-/* Ensure the entire card is clickable and styled appropriately */
+.btn {
+  margin-left: 10px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+}
+
+/* Styles for chirp input form */
+
+/* Form container */
+.chirp-form {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px; /* Add some bottom margin for separation */
+}
+
+/* Title of the form */
+.chirp-form .card-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: #1da1f2; /* Twitter-like blue */
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Text input fields */
+.chirp-form input[type="text"], 
+.chirp-form textarea {
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 12px; /* Increased padding for better input area */
+  font-size: 16px;
+  width: 100%;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.chirp-form input[type="text"]:focus, 
+.chirp-form textarea:focus {
+  outline: none;
+  border-color: #1da1f2; /* Blue border on focus */
+  box-shadow: 0 0 5px rgba(29, 161, 242, 0.5); /* Light shadow on focus */
+}
+
+/* Submit button */
+.chirp-form button[type="submit"] {
+  background-color: #1da1f2; /* Twitter-like blue */
+  border-color: #1da1f2;
+  color: #fff; /* White text */
+  font-weight: bold;
+  padding: 12px 20px; /* Padding top/bottom, left/right */
+  font-size: 18px;
+  width: 100%;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.chirp-form button[type="submit"]:hover {
+  background-color: #0d8ded; /* Darker blue on hover */
+  border-color: #0d8ded;
+}
+
+/* Ensure the entire form is centered */
+.chirp-form form {
+  margin: 0 auto;
+  max-width: 400px; /* Adjust as needed for form width */
+}
+
 .chirp-link {
   text-decoration: none;
   color: inherit;
@@ -118,4 +140,34 @@
 /* Cursor pointer for div-clickable class */
 .div-clickable {
   cursor: pointer;
+}
+
+.sidebar {
+  position: fixed;
+  height: 100%;
+  width: 200px;
+  background-color: #f8f9fa;
+  padding-top: 20px;
+}
+
+.sidebar a {
+  padding: 10px 15px;
+  text-decoration: none;
+  font-size: 18px;
+  color: #333;
+  display: block;
+}
+
+.sidebar a:hover {
+  color: #000;
+}
+
+.content-wrapper {
+  margin-left: 100px !important; /* Adjust margin to the width of the sidebar plus some padding */
+  padding: 20px !important;
+}
+
+.img-small {
+  width: 130px;
+  height: 130px;
 }

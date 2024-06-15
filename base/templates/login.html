@@ -1,6 +1,6 @@
 {% extends 'index.html' %}
 
-{% block content %}
+{% block login %}
 <div class="d-flex justify-content-center align-items-center vh-100">
   <div class="card p-4" style="width: 20rem;">
     <h3 class="text-center mb-4">Login</h3>
@@ -43,7 +43,6 @@
 
       const data = await response.json();
 
-      // Store tokens in localStorage
       localStorage.setItem('accessToken', data.access);
       localStorage.setItem('refreshToken', data.refresh);
 

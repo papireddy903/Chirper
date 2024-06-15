@@ -1,36 +1,36 @@
 {% extends 'index.html' %}
 
 {% block content %}
-<div class="container mt-4">
-  <div class="chirp-form card shadow-sm mb-4">
-    <div class="card-body">
-      <form action="{% url 'home' %}" method="post">
-        {% csrf_token %}
-        <h1 class="card-title">Chirp Something</h1>
-        <div class="mb-3">
-          {{ form.as_p }}
+<div class="content-wrapper">
+    <div class="container mt-4">
+        <div class="chirp-form card shadow-sm mb-4">
+            <div class="card-body">
+                <form action="{% url 'home' %}" method="post">
+                    {% csrf_token %}
+                    <h1 class="card-title">Chirp Something</h1>
+                    <div class="mb-3">
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit" class="btn btn-primary">Chirp</button>
+                </form>
+            </div>
         </div>
-        <button type="submit" class="btn btn-primary">Chirp</button>
-      </form>
-    </div>
-  </div>
 
-  {% for chirp in chirps %}
-  <a href="{% url 'view_post' chirp.id %}" class="chirp-link">
-    <div class="chirp card shadow-sm mb-3 div-clickable">
-        <div class="card-body">
-            <p class="card-text">{{ chirp.chirp }}</p>
-            <p class="text-muted">
-                
-              chirped by  <a href="{% url 'user_profile' chirp.author.username %}" class="text-decoration-none author-link">
-                <span>{{ chirp.author.username }}</span>
-    </a>
-                <span class="float-end">{{ chirp.created|date:"F j, Y, g:i a" }}</span>
-            </p>
-        </div>
+        {% for chirp in chirps %}
+        <a href="{% url 'view_post' chirp.id %}" class="chirp-link">
+            <div class="chirp card shadow-sm mb-3 div-clickable">
+                <div class="card-body">
+                    <p class="card-text">{{ chirp.chirp }}</p>
+                    <p class="text-muted">
+                        chirped by <a href="{% url 'user_profile' chirp.author.username %}" class="text-decoration-none author-link">
+                            <span>{{ chirp.author.username }}</span>
+                        </a>
+                        <span class="float-end">{{ chirp.created|date:"F j, Y, g:i a" }}</span>
+                    </p>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
     </div>
-</a>
-
-{% endfor %}
 </div>
 {% endblock %}
